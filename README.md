@@ -26,3 +26,8 @@ I'd like to see if a bike is working
 |   Person   |             |
 |   Bike     |  working?  |
 |   Docking_station   |     release_bike        |
+
+**Diagram:**
+
+Bike --> working? --> true/false
+Docking_station --> release_bike --> a Bike
