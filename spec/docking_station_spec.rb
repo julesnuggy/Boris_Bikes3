@@ -4,6 +4,7 @@ describe DockingStation do
   it { is_expected.to respond_to :release_bike }
   it { expect(subject.release_bike).to be_a Bike }
   it { expect(subject.release_bike).to respond_to :working? }
+
 end
 
 # a) gets a Bike
