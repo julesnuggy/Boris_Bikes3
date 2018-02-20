@@ -1,7 +1,7 @@
 class DockingStation
 =begin
   def intitalize
-    @bikes = []
+    @bike_rack = []
   end
 =end
 
@@ -10,12 +10,18 @@ class DockingStation
   end
 =begin
   def dock(bike)
-    @bikes.push(bike)
+    @bike_rack.push(bike)
   end
+
+  def read_dock
+    @bike_rack
+  end
+
 =end
 end
 
 class Bike
   def working?
+    true
   end
 end
