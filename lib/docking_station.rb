@@ -6,7 +6,7 @@ class DockingStation
 =end
 
   def release_bike
-    @bike = Bike.new
+    Bike.new
   end
 =begin
   def dock(bike)
