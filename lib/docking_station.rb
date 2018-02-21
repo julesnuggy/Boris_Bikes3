@@ -2,18 +2,16 @@ class DockingStation
   attr_reader :bike_available
 
   def initialize
-    @bike_available = true
+    @capacity = 20
   end
 
   def release_bike
-    error = "No bikes at this station"
-
-      if @bike_available == true
-        @bike_available = false
+      if @capacity > 0
+        @capacity -= 1
         @bike = Bike.new
       else
         begin
-          raise ArgumentError.new(error)
+          raise ArgumentError.new("No bikes at this station")
         rescue ArgumentError => e
           puts e.message
           exit
@@ -22,8 +20,17 @@ class DockingStation
   end
 
   def dock(bike)
-    bike.dock
-    @bike_available = true
+    if @capacity < 20
+      @capacity += 1
+      bike.dock
+    else
+      begin
+        raise ArgumentError.new("The station is full")
+      rescue ArgumentError => e
+        puts e.message
+        exit
+      end
+    end
   end
 
 end

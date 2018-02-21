@@ -8,8 +8,17 @@ describe DockingStation do
 
   it "raises an errror when no bike available" do
     expect {
-      subject.release_bike
-      subject.release_bike
+      station = DockingStation.new
+      21.times { station.release_bike }
+    }.to raise_error
+  end
+
+  it "raises an errror when the dock is full" do
+    expect {
+      station1 = DockingStation.new
+      station2 = DockingStation.new
+      bike1 = station1.release_bike
+      station2.dock(bike1)
     }.to raise_error
   end
 
