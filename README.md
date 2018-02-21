@@ -42,3 +42,5 @@ As a member of the public
 So I can decide whether to use the docking station
 I want to see a bike that has been docked
 ```
+
+In the Bike class, we create the attribute @docked, which is set to "undocked" in `def initialize` and to "docked" in a new class method `def dock`. The `Bike` `dock` method is called by the `DockingStation` method `dock(bike)` - the argument allows for different bikes to be docked individually.
