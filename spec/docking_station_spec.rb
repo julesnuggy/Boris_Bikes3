@@ -6,20 +6,20 @@ describe DockingStation do
   it { expect(subject.release_bike.working?).to eq true }
   it { is_expected.to respond_to :dock }
 
-  it "raises an errror when no bike available" do
+  it "raises an error when no bike available" do
     expect {
       station = DockingStation.new
-      21.times { station.release_bike }
-    }.to raise_error
+      21.times{station.release_bike}
+    }.to raise_error("No bikes at this station")
   end
 
-  it "raises an errror when the dock is full" do
+  it "raises an error when the dock is full" do
     expect {
       station1 = DockingStation.new
       station2 = DockingStation.new
       bike1 = station1.release_bike
       station2.dock(bike1)
-    }.to raise_error
+    }.to raise_error("The station is full")
   end
 
 end

@@ -31,10 +31,11 @@ end
 
 def error_test
   station = DockingStation.new
-  bike1 = station.release_bike
-  p "bike1 Status: #{bike1.dock_status}"
-  bike2 = station.release_bike
-  p "bike2 Status: #{bike2.dock_status}"
+  21.times {
+    p station.capacity
+    station.release_bike
+    }
+
 
 end
 error_test
