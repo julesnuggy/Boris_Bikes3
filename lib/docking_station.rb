@@ -1,26 +1,29 @@
 class DockingStation
-=begin
-  def intitalize
-    @bike_rack = []
-  end
-=end
 
   def release_bike
-    Bike.new
+    @bike = Bike.new('undocked')
+
   end
-=begin
+
   def dock(bike)
-    @bike_rack.push(bike)
+    bike.dock
   end
-
-  def read_dock
-    @bike_rack
-  end
-
-=end
+  
 end
 
 class Bike
+  def initialize(docked)
+    @docked = docked
+  end
+
+  def dock
+    @docked = "docked"
+  end
+
+  def docked?
+    @docked
+  end
+
   def working?
     true
   end
