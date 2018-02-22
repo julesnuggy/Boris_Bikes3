@@ -1,8 +1,9 @@
 class DockingStation
-  attr_reader :bike_available
+  attr_reader :bikes_in_station
 
   def initialize
-    @capacity = 20
+    @bikes_in_station = []
+    20.times{@bikes_in_station << Bike.new}
   end
 
   def release_bike
@@ -23,11 +24,15 @@ class Bike
   attr_reader :dock_status
 
   def initialize
-    @dock_status = "undocked"
+    @dock_status = "docked"
   end
 
   def dock
     @dock_status = "docked"
+  end
+
+  def release
+    @dock_status = "undocked"
   end
 
   def working?
