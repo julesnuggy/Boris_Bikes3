@@ -7,29 +7,15 @@ class DockingStation
   end
 
   def release_bike
-      if !@bikes_in_station.empty?
-        @bikes_in_station.last.release
-        @bikes_in_station.pop
-      else
-        begin
-          raise ArgumentError.new("No bikes at this station")
-        rescue ArgumentError => e
-          p e.message
-        end
-      end
+    fail "No bikes at this station" if @bikes_in_station.empty?
+      @bikes_in_station.last.release
+      @bikes_in_station.pop
   end
 
   def dock(bike)
-    if @bikes_in_station.length < 20
+    fail "The station is full" if @bikes_in_station.length == 20
       @bikes_in_station.push(bike)
       bike.dock
-    else
-      begin
-        raise ArgumentError.new("The station is full")
-      rescue ArgumentError => e
-        p e.message
-      end
-    end
   end
 
 end
