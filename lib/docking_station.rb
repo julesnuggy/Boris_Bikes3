@@ -92,6 +92,21 @@ end
 
 
 class Van
+  attr_reader :broken_bikes
+
+  def initialize
+    @broken_bikes = []
+  end
+
+  def collect_bikes(station)
+    indices = station.view_broken #Get array of indices of broken bikes in station
+    indices.each { |dock_index| # Loop through bikes_in_station to extract broken bike objects
+      released_bike = station.bikes_in_station[dock_index]
+      released_bike.release
+      station.bikes_in_station[dock_index] = nil
+      @broken_bikes.push(released_bike)
+    }
+  end
 
 end
 
