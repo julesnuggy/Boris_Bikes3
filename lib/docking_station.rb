@@ -1,33 +1,34 @@
 class DockingStation
-  attr_reader :bikes_in_station
+  attr_reader :bike_available
 
   def initialize
-    @bikes_in_station = []
-    20.times{@bikes_in_station << Bike.new}
+    @capacity = 20
   end
 
   def release_bike
-      if !@bikes_in_station.empty?
-        @bikes_in_station.last.release
-        @bikes_in_station.pop
+      if @capacity > 0
+        @capacity -= 1
+        @bike = Bike.new
       else
         begin
           raise ArgumentError.new("No bikes at this station")
         rescue ArgumentError => e
-          p e.message
+          puts e.message
+          exit
         end
       end
   end
 
   def dock(bike)
-    if @bikes_in_station.length < 20
-      @bikes_in_station.push(bike)
+    if @capacity < 20
+      @capacity += 1
       bike.dock
     else
       begin
         raise ArgumentError.new("The station is full")
       rescue ArgumentError => e
-        p e.message
+        puts e.message
+        exit
       end
     end
   end
@@ -38,15 +39,11 @@ class Bike
   attr_reader :dock_status
 
   def initialize
-    @dock_status = "docked"
+    @dock_status = "undocked"
   end
 
   def dock
     @dock_status = "docked"
-  end
-
-  def release
-    @dock_status = "undocked"
   end
 
   def working?
