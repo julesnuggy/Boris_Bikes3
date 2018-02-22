@@ -22,6 +22,13 @@ describe DockingStation do
     }.to raise_error("The station is full")
   end
 
+  it "sets the docking station capacity to DEFAULT_CAPACITY" do
+    expect(DockingStation.new().capacity).to eq(20)
+  end
+
+  it "allows the user to set their own capacity value" do
+    expect(DockingStation.new(30).capacity).to eq(30)
+  end
 end
 
 # a) gets a Bike
