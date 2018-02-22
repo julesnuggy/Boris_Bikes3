@@ -9,7 +9,7 @@ describe DockingStation do
   it "raises an error when no bike available" do
     expect {
       station = DockingStation.new
-      21.times{station.release_bike}
+      (DockingStation::DEFAULT_CAPACITY + 1).times{station.release_bike}
     }.to raise_error("No bikes at this station")
   end
 
