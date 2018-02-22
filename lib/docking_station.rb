@@ -35,9 +35,11 @@ end
 
 class Bike
   attr_reader :dock_status
+  attr_accessor :working
 
   def initialize
     @dock_status = "docked"
+    @working = true
   end
 
   def dock
@@ -48,7 +50,8 @@ class Bike
     @dock_status = "undocked"
   end
 
-  def working?
-    true
+  def report
+    @working = false
   end
+  
 end
