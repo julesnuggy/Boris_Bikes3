@@ -29,6 +29,16 @@ describe DockingStation do
   it "allows the user to set their own capacity value" do
     expect(DockingStation.new(30).capacity).to eq(30)
   end
+
+  it "raises an error when trying to release bike if the bike is broken" do
+    expect {
+      station = DockingStation.new
+      bike = station.release_bike
+      bike.report
+      station.dock(bike)
+      station.release_bike
+    }.to raise_error("Bike is broken")
+  end
 end
 
 
