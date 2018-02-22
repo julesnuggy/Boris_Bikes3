@@ -36,7 +36,7 @@ describe DockingStation do
       bike = station.release_bike
       bike.report
       station.dock(bike)
-      station.release_bike
+      release_bike
     }.to raise_error("Bike is broken")
   end
 end
