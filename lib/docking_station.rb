@@ -42,6 +42,7 @@ class DockingStation
       end
     }
     p "Working bikes found at #{working_bikes}"
+    working_bikes
   end
 
 
@@ -53,6 +54,7 @@ class DockingStation
       end
     }
     p "Broken bikes found at #{broken_bikes}"
+    broken_bikes
   end
 
   private
@@ -92,23 +94,83 @@ end
 
 
 class Van
-  attr_reader :broken_bikes
+  # Van takes broken bikes from dock to garage
+  # Van takes fixed bikes from garage to dock
+
+  attr_accessor :van_store
 
   def initialize
-    @broken_bikes = []
+    @van_store = []
   end
 
   def collect_bikes(station)
-    indices = station.view_broken #Get array of indices of broken bikes in station
-    indices.each { |dock_index| # Loop through bikes_in_station to extract broken bike objects
+    # Get array of indices of where broken bikes are in station
+    van_bikes = station.view_broken
+
+    # Loop through this array and, for each indexed-bike, undock the bike
+    # Replace the undocked bike object with nil in the station array
+    # Push bike object to @van_store array
+    van_bikes.each { |dock_index|
       released_bike = station.bikes_in_station[dock_index]
       released_bike.release
       station.bikes_in_station[dock_index] = nil
-      @broken_bikes.push(released_bike)
+      @van_store.push(released_bike)
     }
+
+    p "Collected broken bikes: #{@van_store}"
+    @van_store
+  end
+
+  def return_bikes()
   end
 
 end
 
 class Garage
+  # Garage takes broken bikes from Van
+  # Garage returns fixed bikes to Van
+
+  attr_accessor :garage_store
+
+  def initialize
+    @garage_store = []
+  end
+
+  def receive_bikes(van)
+    # Add broken bikes on van to garage_store
+    @garage_store += van.van_store
+    # Clear van_store array as van is now empty
+    van.van_store.clear
+
+    p "Received broken bikes: #{garage_store}"
+  end
+
+  def fix(bikes)
+    if bikes == "all"
+      @garage_store.each { |bike|
+        bike.working = true
+      }
+    else
+      
+    end
+    p "Fixed bikes: #{garage_store}"
+  end
+
+  def return_bikes(van)
+    # Loop through each |bike| element in garage
+    @garage_store.each { |bike|
+      # If bike is fixed (i.e. working) then
+      if bike.working == true
+        # push bike to van
+        van.van_store.push(bike)
+        # and remove from garage
+        @garage_store.delete(bike)
+      end
+    }
+    p "Returned broken bikes: #{van.van_store}"
+    p "Van now contains: #{van.van_store}"
+    p "Garage now contains: #{garage_store}"
+
+  end
+
 end
